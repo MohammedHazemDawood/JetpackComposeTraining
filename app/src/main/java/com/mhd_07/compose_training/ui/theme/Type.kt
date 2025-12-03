@@ -17,59 +17,59 @@ private val poppinsFontFamily = FontFamily(
 
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 40.sp,
-        lineHeight = 46.sp,
+        fontSize = 50.sp,
+        lineHeight = 55.sp,
         letterSpacing = 0.5.sp
     ),
     displayMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
+        fontFamily = poppinsFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 13.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.5.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.SemiBold,
         fontSize = 32.sp,
         lineHeight = 38.sp,
         letterSpacing = 0.5.sp
     ),
     headlineSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         lineHeight = 26.sp,
         letterSpacing = 0.5.sp
     ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.Medium,
         lineHeight = 22.sp,
         fontSize = 16.sp,
         letterSpacing = 0.5.sp
     ),
     bodyMedium = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFontFamily,
         fontWeight = FontWeight.Normal,
         lineHeight = 14.sp,
-        fontSize = 20.sp,
+        fontSize = 11.sp,
         letterSpacing = 0.5.sp
     ),
-    bodySmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        lineHeight = 13.sp,
-        fontSize = 19.sp,
-        letterSpacing = 0.5.sp
+    labelLarge = TextStyle(
+        fontFamily = poppinsFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 20.sp,
+        fontSize = 13.sp,
+        letterSpacing = 0.sp
     ),
 )
