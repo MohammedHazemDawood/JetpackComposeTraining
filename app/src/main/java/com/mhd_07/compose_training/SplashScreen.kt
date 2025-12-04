@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier) {
+fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
     Box(modifier, contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(R.drawable.splash_bg),
@@ -91,7 +91,7 @@ fun SplashScreen(modifier: Modifier = Modifier) {
                     )
                     Button(
                         modifier = Modifier.padding(top = 64.dp, start = 16.dp, bottom = 16.dp),
-                        onClick = {},
+                        onClick = onStartClick,
                         shape = MaterialTheme.shapes.small
                     ) {
                         Row(

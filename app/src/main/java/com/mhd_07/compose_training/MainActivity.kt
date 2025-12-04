@@ -1,43 +1,60 @@
 package com.mhd_07.compose_training
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.mhd_07.compose_training.ui.theme.JetpackComposeTrainingTheme
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             JetpackComposeTrainingTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
-                    SplashScreen(modifier = Modifier
-                        .fillMaxSize()
-                        .padding())
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    NavigationContainer(
+                        modifier = Modifier.fillMaxSize(),
+                        innerPadding = innerPadding
+                    )
                 }
             }
         }
     }
 }
 
-enum class AppDestinations(
-    val label: String,
-    val icon: ImageVector,
-) {
-    HOME("Home", Icons.Default.Home),
-    FAVORITES("Favorites", Icons.Default.Favorite),
-    PROFILE("Profile", Icons.Default.AccountBox),
+@Composable
+fun NavigationContainer(modifier: Modifier = Modifier, innerPadding: PaddingValues) {
+    val backStack = rememberNavBackStack(NavEntries.Splash)
+    NavDisplay(
+        backStack = backStack,
+        modifier = modifier,
+        entryProvider = entryProvider {
+            entry<NavEntries.Splash> {
+                SplashScreen(modifier = Modifier.fillMaxSize(), onStartClick = {
+                    backStack.add(NavEntries.SignIn)
+                })
+            }
+            entry<NavEntries.SignIn> {
+                SignInScreen(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding))
+            }
+        }
+    )
+}
+
+sealed interface NavEntries : NavKey {
+    data object Splash : NavEntries
+    data object SignIn : NavEntries
 }
