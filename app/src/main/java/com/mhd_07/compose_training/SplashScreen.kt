@@ -28,10 +28,11 @@ import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import com.mhd_07.compose_training.ui.theme.LocalDim
 
 @Composable
 fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
+    val dim = LocalDim.current
     Box(modifier, contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(R.drawable.splash_bg),
@@ -59,7 +60,12 @@ fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 50.dp, end = 50.dp, top = 104.dp, bottom = 84.dp),
+                .padding(
+                    start = dim.spacing_xl,
+                    end = dim.spacing_xl,
+                    top = dim.spacing_xxxxl,
+                    bottom = dim.spacing_xxxl
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -71,7 +77,7 @@ fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
                     Icon(
                         painter = painterResource(R.drawable.coock_hat),
                         contentDescription = null,
-                        modifier = Modifier.padding(bottom = 14.dp)
+                        modifier = Modifier.padding(top = dim.spacing_s)
                     )
                     Text("100K+ Premium Recipe", style = MaterialTheme.typography.displayMedium)
                 }
@@ -83,27 +89,27 @@ fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
                         "Get Cooking",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.displayLarge,
-                        modifier = Modifier.padding(bottom = 20.dp, start = 31.dp, end = 31.dp)
+                        modifier = Modifier.padding(bottom = dim.spacing_s, start = dim.spacing_l, end = dim.spacing_l)
                     )
                     Text(
                         "Simple way to find Tasty Recipe",
                         style = MaterialTheme.typography.displaySmall
                     )
                     Button(
-                        modifier = Modifier.padding(top = 64.dp, start = 16.dp, bottom = 16.dp),
+                        modifier = Modifier.padding(top = dim.spacing_xxxl, start = dim.spacing_s, bottom = dim.spacing_s),
                         onClick = onStartClick,
                         shape = MaterialTheme.shapes.small
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 15.dp),
+                                .padding(vertical = dim.spacing_s),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
                                 "Start Cooking",
-                                modifier = Modifier.padding(end = 9.dp)
+                                modifier = Modifier.padding(end =dim.spacing_xs)
                             )
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,

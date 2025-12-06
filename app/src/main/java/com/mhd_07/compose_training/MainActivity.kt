@@ -10,22 +10,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.mhd_07.compose_training.ui.theme.JetpackComposeTrainingTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            JetpackComposeTrainingTheme {
+            val backStack = rememberNavBackStack(NavEntries.Splash)
+            JetpackComposeTrainingTheme(backStack = backStack) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavigationContainer(
                         modifier = Modifier.fillMaxSize(),
-                        innerPadding = innerPadding
+                        innerPadding = innerPadding,
+                        backStack = backStack
                     )
                 }
             }
@@ -34,8 +38,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NavigationContainer(modifier: Modifier = Modifier, innerPadding: PaddingValues) {
-    val backStack = rememberNavBackStack(NavEntries.Splash)
+fun NavigationContainer(
+    modifier: Modifier = Modifier,
+    innerPadding: PaddingValues,
+    backStack: NavBackStack<NavKey>
+) {
     NavDisplay(
         backStack = backStack,
         modifier = modifier,
@@ -46,15 +53,21 @@ fun NavigationContainer(modifier: Modifier = Modifier, innerPadding: PaddingValu
                 })
             }
             entry<NavEntries.SignIn> {
-                SignInScreen(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding))
+                SignInScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                )
             }
         }
     )
 }
 
+@Serializable
 sealed interface NavEntries : NavKey {
+    @Serializable
     data object Splash : NavEntries
+
+    @Serializable
     data object SignIn : NavEntries
 }

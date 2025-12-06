@@ -9,4 +9,4 @@ val SurfaceColor = Color(0xFF5C5C5C)
 val OnPrimaryColor = Color.White
 val OnBackgroundColor = Color.Black
 val OnSecondaryColor = Color.Black
-val OnSurfaceColor = Color.White
+val OnSurfaceColor = Color.Black
