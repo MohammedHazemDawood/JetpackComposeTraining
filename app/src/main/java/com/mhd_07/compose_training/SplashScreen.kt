@@ -96,20 +96,23 @@ fun SplashScreen(modifier: Modifier = Modifier, onStartClick: () -> Unit) {
                         style = MaterialTheme.typography.displaySmall
                     )
                     Button(
-                        modifier = Modifier.padding(top = dim.spacing_xxxl, start = dim.spacing_s, bottom = dim.spacing_s),
                         onClick = onStartClick,
-                        shape = MaterialTheme.shapes.small
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.padding(top = dim.spacing_xxxl, start = dim.spacing_s, bottom = dim.spacing_s)
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = dim.spacing_s),
-                            horizontalArrangement = Arrangement.Center,
+                            horizontalArrangement = Arrangement.spacedBy(
+                                dim.spacing_xs,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
                                 "Start Cooking",
-                                modifier = Modifier.padding(end =dim.spacing_xs)
+//                    modifier = Modifier.padding(end = dim.spacing_xs)
                             )
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,

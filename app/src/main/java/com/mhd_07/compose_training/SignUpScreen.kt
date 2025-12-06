@@ -14,11 +14,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,53 +31,105 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import com.mhd_07.compose_training.ui.theme.LocalDim
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier, onSignUpClick: () -> Unit) {
+fun SignUpScreen(modifier: Modifier = Modifier) {
     val dim = LocalDim.current
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var passwordConfirm by remember { mutableStateOf("") }
+    var termsAccepted by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier.padding(
+            top = dim.spacing_xs,
             start = dim.spacing_l,
-            end = dim.spacing_l,
-            top = dim.spacing_xxl,
-            bottom = dim.spacing_xxxl
+            end = dim.spacing_l
         )
     ) {
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        Text(text = "Hello,", style = MaterialTheme.typography.headlineMedium)
-        Text(text = "Welcome Back!", style = MaterialTheme.typography.headlineSmall)
-        OutlinedTextFieldWithLabel(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = dim.spacing_xxl),
-            value = email,
-            onValueChange = { n -> email = n },
-            placeholder = { Text(text = "Enter Email") },
-            label = "Email"
-        )
-        OutlinedTextFieldWithLabel(
+                .padding(end = dim.spacing_xxxxl, bottom = dim.spacing_m)
+        ) {
+            Text(
+                text = "Create an account",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(bottom = dim.spacing_xxs)
+            )
+            Text(
+                text = "Let’s help you set up your account, it won’t take long.",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = dim.spacing_l),
-            value = password,
-            onValueChange = { n -> password = n },
-            placeholder = { Text(text = "Enter Password") },
-            label = "Password"
-        )
-        Text(
-            text = "Forgot Password?",
+                .padding(bottom = dim.spacing_xxs),
+            verticalArrangement = Arrangement.spacedBy(dim.spacing_s)
+        ) {
+            OutlinedTextFieldWithLabel(
+                value = name,
+                onValueChange = { n -> name = n },
+                label = "Name",
+                placeholder = { Text(text = "Enter Name") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextFieldWithLabel(
+                value = email,
+                onValueChange = { n -> email = n },
+                label = "Email",
+                placeholder = { Text(text = "Enter Email") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextFieldWithLabel(
+                value = password,
+                onValueChange = { n -> password = n },
+                label = "Password",
+                placeholder = { Text(text = "Enter Password") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextFieldWithLabel(
+                value = passwordConfirm,
+                onValueChange = { n -> passwordConfirm = n },
+                label = "Confirm Password",
+                placeholder = { Text(text = "Retype Password") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        Row(
             modifier = Modifier
-                .padding(start = dim.spacing_xs, top = dim.spacing_s, bottom = dim.spacing_m)
-                .clickable {},
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color(0XFFFF9C00)
-        )
-
+                .fillMaxWidth()
+                .padding(bottom = dim.spacing_s),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(dim.spacing_xxs)
+        ) {
+            Checkbox(
+                checked = termsAccepted,
+                onCheckedChange = { n -> termsAccepted = n },
+//                modifier = Modifier.padding(end = dim.spacing_xxs),
+                colors = CheckboxDefaults.colors().copy(
+                    checkedCheckmarkColor = Color(0XFFFF9C00),
+                    uncheckedBorderColor = Color(0XFFFF9C00),
+                    checkedBorderColor = Color(0XFFFF9C00),
+                    checkedBoxColor = Color.White,
+                    uncheckedBoxColor = Color.White,
+                )
+            )
+            Text(
+                text = "Accept terms & Condition",
+                color = Color(0XFFFF9C00),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
         Button(
             onClick = { },
             shape = MaterialTheme.shapes.small,
+            enabled = termsAccepted,
             modifier = Modifier.padding(bottom = dim.spacing_s)
         ) {
             Row(
@@ -101,7 +155,11 @@ fun SignInScreen(modifier: Modifier = Modifier, onSignUpClick: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = dim.spacing_xxxl, end = dim.spacing_xxxl, bottom = dim.spacing_m),
+                .padding(
+                    start = dim.spacing_xxxl,
+                    end = dim.spacing_xxxl,
+                    bottom = dim.spacing_m
+                ),
             horizontalArrangement = Arrangement.spacedBy(
                 dim.spacing_xs,
                 Alignment.CenterHorizontally
@@ -117,11 +175,14 @@ fun SignInScreen(modifier: Modifier = Modifier, onSignUpClick: () -> Unit) {
             )
             HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray)
         }
-
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(dim.spacing_m, Alignment.CenterHorizontally),
+                .fillMaxWidth()
+                .padding(bottom = dim.spacing_m),
+            horizontalArrangement = Arrangement.spacedBy(
+                dim.spacing_m,
+                Alignment.CenterHorizontally
+            ),
         ) {
             ElevatedCard(
                 onClick = { },
@@ -158,42 +219,16 @@ fun SignInScreen(modifier: Modifier = Modifier, onSignUpClick: () -> Unit) {
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = dim.spacing_xl),
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Don’t have an account? ", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Already a member? ", style = MaterialTheme.typography.bodyMedium)
             Text(
-                text = "Sign up",
+                text = "Sign In",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color(0XFFFF9C00),
-                modifier = Modifier.clickable(onClick = onSignUpClick)
+                modifier = Modifier.clickable {}
             )
         }
-    }
-}
-
-
-@Composable
-fun OutlinedTextFieldWithLabel(
-    modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (n: String) -> Unit,
-    label: String,
-    placeholder: @Composable () -> Unit = { }
-) {
-    val dim = LocalDim.current
-    Column(modifier = modifier) {
-        Text(text = label, style = MaterialTheme.typography.bodyLarge)
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = placeholder,
-            singleLine = true,
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = dim.spacing_xxs),
-        )
     }
 }

@@ -56,7 +56,17 @@ fun NavigationContainer(
                 SignInScreen(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(innerPadding)
+                        .padding(innerPadding),
+                    onSignUpClick = {
+                        backStack.add(NavEntries.SignUp)
+                    }
+                )
+            }
+            entry<NavEntries.SignUp> {
+                SignUpScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
                 )
             }
         }
@@ -70,4 +80,7 @@ sealed interface NavEntries : NavKey {
 
     @Serializable
     data object SignIn : NavEntries
+
+    @Serializable
+    data object SignUp : NavEntries
 }
